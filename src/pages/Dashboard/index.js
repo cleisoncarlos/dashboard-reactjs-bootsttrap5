@@ -8,26 +8,70 @@ import 'quill/dist/quill.snow.css'; // Importa o CSS do tema
 
 
 
+
 export default function Dashboard() {
    
     const editorRef = useRef(null); 
     const quillRef = useRef(null); 
-    // Armazena a instância do Quill 
+    
     useEffect(() => { if (quillRef.current == null) { 
-        // Verifica se o Quill já foi inicializado 
         quillRef.current = new Quill(editorRef.current, { 
-            theme: 'snow', modules: { 
+            theme: 'snow', 
+            modules: { 
                 toolbar: [ 
+
                     [{ 'header': '1'}, {'header': '2'}, { 'font': [] }], 
-                    [{size: []}], ['bold', 'italic', 'underline', 'strike', 'blockquote'], 
+                    [{size: []}], 
+                    ['bold', 'italic', 'underline', 'strike', 'blockquote'], 
                     [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}], 
-                    ['link', 'image', 'video'], ['clean'] ] } }); 
-                    
-                    quillRef.current.on('text-change', () => { 
-                        const conteudo = quillRef.current.root.innerHTML; 
-                        console.log(conteudo); // Aqui você pode lidar com o estado do conteúdo 
+                    ['link', 'image', 'video'], 
+                    ['clean']                    
+                ],
+                handlers: { 
+                    image: imageHandler
+                } 
+            } 
+        });
+    }
+        }, []);
+
+
+        // exibe o hrml dentro do editor
+        const logConteudo = () => { 
+            if (quillRef.current) { 
+                const conteudo = quillRef.current.root.innerHTML; 
+                console.log(conteudo); 
+            } };
+
+
+          
+// salva as imagens do editor
+    const imageHandler = () => { 
+        const input = document.createElement('input'); 
+        input.setAttribute('type', 'file'); 
+        input.setAttribute('accept', 'image/*'); 
+        input.click(); input.onchange = async () => { 
+            const file = input.files[0]; 
+            const formData = new FormData(); 
+
+
+            formData.append('imagem', file); 
+            const response = await fetch('/upload', { 
+                method: 'POST', 
+                body: formData
+             }); 
+             
+             const imageUrl = await response.text(); 
+             const range = quillRef.current.getSelection(); 
+             quillRef.current.editor.insertEmbed(range.index, 'image', imageUrl); 
+            }; 
+        }
+           
+            
+        
+
+         
               
-                    }); } }, []);
 
 
   return (
@@ -45,54 +89,33 @@ export default function Dashboard() {
                         <ol className="breadcrumb mb-4">
                             <li className="breadcrumb-item active">Dashboard</li>
                         </ol>
+             
                         <div className="row">
-                            <div className="col-xl-3 col-md-6">
-                                <div className="card bg-primary text-white mb-4">
-                                    <div className="card-body">Primary Card</div>
-                                    <div className="card-footer d-flex align-items-center justify-content-between">
-                                        <a className="small text-white stretched-link" href="/">View Details</a>
-                                        <div className="small text-white"><i className="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-xl-3 col-md-6">
-                                <div className="card bg-warning text-white mb-4">
-                                    <div className="card-body">Warning Card</div>
-                                    <div className="card-footer d-flex align-items-center justify-content-between">
-                                        <a className="small text-white stretched-link" href="/">View Details</a>
-                                        <div className="small text-white"><i className="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-xl-3 col-md-6">
-                                <div className="card bg-success text-white mb-4">
-                                    <div className="card-body">Success Card</div>
-                                    <div className="card-footer d-flex align-items-center justify-content-between">
-                                        <a className="small text-white stretched-link" href="/">View Details</a>
-                                        <div className="small text-white"><i className="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-xl-3 col-md-6">
-                                <div className="card bg-danger text-white mb-4">
-                                    <div className="card-body">Danger Card</div>
-                                    <div className="card-footer d-flex align-items-center justify-content-between">
-                                        <a className="small text-white stretched-link" href="/">View Details</a>
-                                        <div className="small text-white"><i className="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-xl-12">
+                            <div className="">
+
                                 <div className="card mb-4">
                                     <div className="card-header">
-                                        <i className="fas fa-chart-area me-1"></i>
-                                        Area Chart Example
+                                       Lorem Ipsum Dolor
                                     </div>
                                   <div className="card-body">
 
-                                  <div ref={editorRef} />                              
+
+                                  <div className="mb-3">
+  <label  className="form-label">Titulo</label>
+  <input type="text" className="form-control" id="" placeholder=""/>
+</div>
+
+
+
+
+                                  <div ref={editorRef} />   
+
+
+                                  <button className="btn btn-secondary" onClick={logConteudo}>Mostrar Conteúdo</button>  
+
+                                  <button className="btn btn-primary" onClick={()=>{}}>Publicar Conteúdo</button>   
+
+                                                                                   
                                
 
                                   </div>    
