@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 
 import axios from 'axios'
+import { toast } from 'sonner';
 
 import React, { useEffect, useRef, useState } from 'react'; 
 import Quill from 'quill'; 
@@ -10,6 +11,9 @@ import 'quill/dist/quill.snow.css'; // Importa o CSS do tema
 
 
 export default function Dashboard() {
+
+
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODdkZTljLTM3NDQtNDNhNi1hMzViLTk1NjExMDk2MzY3MCIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIiwiaWF0IjoxNzMzMjU3MzgxLCJleHAiOjE3MzMyNjA5ODF9.QSDC09b5F23BfxG_OCod5o0CjIM-k2OIpTAdaUn1Z2U'
    
     const editorRef = useRef(null); 
     const quillRef = useRef(null); 
@@ -45,7 +49,7 @@ export default function Dashboard() {
          useEffect(() => { 
        
             axios.get('http://localhost:3333/category', {
-                 headers: { 'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODdkZTljLTM3NDQtNDNhNi1hMzViLTk1NjExMDk2MzY3MCIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIiwiaWF0IjoxNzMzMjUwNTgwLCJleHAiOjE3MzMyNTQxODB9.Qrmc4gkSO69FjNvG-sQd5_Vo0KOdGmMTd6kaUGu1QC4` }
+                 headers: { 'Authorization': `Bearer ${token}` }
              }
         )
             .then(response => { 
@@ -55,7 +59,7 @@ export default function Dashboard() {
             
             }) 
                 .catch(error => { 
-                    console.error('Erro ao buscar os dados:', error); 
+                    console.error('Erro ao carregar as categorias:', error); 
 
                 }); 
 
@@ -93,17 +97,21 @@ const handleSubmit = async (e) => {
     formData.append('content', content); 
     formData.append('categoryId', categoryId);
     
-   // console.log('Dados enviados:', { title, content, categoryId });
+    console.log('Dados enviados:', { title, content, categoryId });
     try { 
         
         const response = await axios.post('http://localhost:3333/post', formData, { 
             headers: { 
-                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODdkZTljLTM3NDQtNDNhNi1hMzViLTk1NjExMDk2MzY3MCIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIiwiaWF0IjoxNzMzMjUzMDI1LCJleHAiOjE3MzMyNTY2MjV9.Z4f7_9hhkkxehuP_u5CBsoG_T5p6fH6ka2cZRLLJ1Ng`
+                'Authorization': `Bearer ${token}`
             } 
         }
         ); 
+        toast.success('Post cadastrado com sucesso!');
         console.log('Post salvo com sucesso:', response.data); 
     } catch (error) { 
+        toast.error('Erro ao cadastrar postagem!', {
+            className: 'alert alert-success',
+        });
         console.error('Erro ao salvar o post:', error.response.data);  
         
     } };
