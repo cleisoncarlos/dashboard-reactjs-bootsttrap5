@@ -2,8 +2,16 @@ import React, {useEffect, useState} from 'react'
 
 export default function Navbar() {
 
- const [darkMode, setDarkMode] = useState(false); 
-useEffect(() => { document.body.className = darkMode ? 'bg-dark text-white' : 'bg-light text-dark'; }, [darkMode]); 
+    const [darkMode, setDarkMode] = useState(false); 
+    useEffect(() => { 
+        // Atualiza a classe do body 
+        document.body.className = darkMode ? 'bg-dark text-white' : 'bg-light text-dark'; 
+        // Adiciona ou remove o atributo data-bs-theme 
+        if (darkMode) { 
+            document.body.setAttribute('data-bs-theme', 'dark'); 
+        } else { 
+            document.body.removeAttribute('data-bs-theme'); 
+        } }, [darkMode]);
 
 const toggleTheme = () => { setDarkMode(!darkMode);
 
@@ -25,9 +33,7 @@ const toggleTheme = () => { setDarkMode(!darkMode);
    
     <ul className="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
 
-<li className='nav-item'>
-<i className="fa-regular fa-sun"></i>
-</li>
+
 
 
         <li className="nav-item dropdown">
