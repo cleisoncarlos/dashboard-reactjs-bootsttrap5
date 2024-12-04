@@ -90,8 +90,7 @@ const handleSubmit = async (e) => {
     e.preventDefault(); 
 
     const content = getConteudo()
-    
-    
+       
     //  const formData = new FormData(); 
     //  formData.append('title', title); 
     //  formData.append('content', content); 
@@ -100,8 +99,7 @@ const handleSubmit = async (e) => {
     const dados = { title: title, content: content, categoryId: categoryId };
     
     console.log('Dados enviados:', { dados });
-    try { 
-        
+    try {         
         const response = await axios.post('http://localhost:3333/post', JSON.stringify(dados), { 
             headers: { 
                 'Content-Type': 'application/json',
@@ -115,10 +113,7 @@ const handleSubmit = async (e) => {
         setTitle('');      
         setCategoryId('');
         quillRef.current.setContents([]);
-
-
-
-
+//==========================================
           console.log('Post salvo com sucesso:', response.data); 
     } catch (error) { 
         toast.error('Erro ao cadastrar postagem!', {

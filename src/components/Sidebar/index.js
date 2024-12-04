@@ -6,26 +6,32 @@ export default function Sidebar() {
     <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
     <div className="sb-sidenav-menu">
         <div className="nav">
-            <div className="sb-sidenav-menu-heading">Core</div>
-            <a className="nav-link" href="index.html">
-                <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
-                Dashboard
+            <div className="sb-sidenav-menu-heading">POSTS</div>
+            <a className="nav-link" href="/">
+                <div className="sb-nav-link-icon"><i className="fas fa-news-alt"></i></div>
+                Inserir Post
             </a>
-            <a className="nav-link" href="index.html">
+            <a className="nav-link" href="/">
                 <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
-                Dashboard
+                Listar Posts
             </a>
-            <a className="nav-link" href="index.html">
-                <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
-                Dashboard
+            <div className="sb-sidenav-menu-heading">CATEGORIAS</div>
+            <a className="nav-link" href="/">
+                <div className="sb-nav-link-icon"><i className="fas fa-tag-alt"></i></div>
+                Inserir Categoria
             </a>
-            <a className="nav-link" href="index.html">
+            <a className="nav-link" href="/">
                 <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
-                Dashboard
+                Listar Categorias
             </a>
-            <a className="nav-link" href="index.html">
+            <div className="sb-sidenav-menu-heading">USUÁRIOS</div>
+            <a className="nav-link" href="/">
+                <div className="sb-nav-link-icon"><i className="fas fa-user-alt"></i></div>
+                Inserir Usuário
+            </a>
+            <a className="nav-link" href="/">
                 <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
-                Dashboard
+                Listar Usuários
             </a>
             <div className="sb-sidenav-menu-heading">Interface</div>
             <a className="nav-link collapsed" href="/" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
