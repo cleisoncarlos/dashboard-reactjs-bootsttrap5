@@ -13,7 +13,7 @@ import 'quill/dist/quill.snow.css'; // Importa o CSS do tema
 export default function Dashboard() {
 
 
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODdkZTljLTM3NDQtNDNhNi1hMzViLTk1NjExMDk2MzY3MCIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIiwiaWF0IjoxNzMzMjU3MzgxLCJleHAiOjE3MzMyNjA5ODF9.QSDC09b5F23BfxG_OCod5o0CjIM-k2OIpTAdaUn1Z2U'
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODdkZTljLTM3NDQtNDNhNi1hMzViLTk1NjExMDk2MzY3MCIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIiwiaWF0IjoxNzMzMzE3NTc3LCJleHAiOjE3MzMzMjExNzd9.WiPXmYnYcr4IVR7NpD7XH00WZ-qXKkrtwye-tW9pNUI'
    
     const editorRef = useRef(null); 
     const quillRef = useRef(null); 
@@ -92,30 +92,42 @@ const handleSubmit = async (e) => {
     const content = getConteudo()
     
     
-    const formData = new FormData(); 
-    formData.append('title', title); 
-    formData.append('content', content); 
-    formData.append('categoryId', categoryId);
+    //  const formData = new FormData(); 
+    //  formData.append('title', title); 
+    //  formData.append('content', content); 
+    //  formData.append('categoryId', categoryId);
+
+    const dados = { title: title, content: content, categoryId: categoryId };
     
-    console.log('Dados enviados:', { title, content, categoryId });
+    console.log('Dados enviados:', { dados });
     try { 
         
-        const response = await axios.post('http://localhost:3333/post', formData, { 
+        const response = await axios.post('http://localhost:3333/post', JSON.stringify(dados), { 
             headers: { 
+                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             } 
         }
         ); 
         toast.success('Post cadastrado com sucesso!');
-        console.log('Post salvo com sucesso:', response.data); 
+
+// Limpar os campos do formulário 
+        setTitle('');      
+        setCategoryId('');
+        quillRef.current.setContents([]);
+
+
+
+
+          console.log('Post salvo com sucesso:', response.data); 
     } catch (error) { 
         toast.error('Erro ao cadastrar postagem!', {
             className: 'alert alert-success',
         });
         console.error('Erro ao salvar o post:', error.response.data);  
+    
         
     } };
-
 
   return (
 <>
