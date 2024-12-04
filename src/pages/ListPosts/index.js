@@ -26,7 +26,7 @@ export default function ListPosts() {
    
     const [posts, setPosts] = useState([]);
             
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODdkZTljLTM3NDQtNDNhNi1hMzViLTk1NjExMDk2MzY3MCIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIiwiaWF0IjoxNzMzMzM2NTYzLCJleHAiOjE3MzMzNDAxNjN9.2qypSKU69tHp_CPbGtQtWEdH4EIrLTBAklGvyq8oCl8'
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODdkZTljLTM3NDQtNDNhNi1hMzViLTk1NjExMDk2MzY3MCIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIiwiaWF0IjoxNzMzMzQwMzM5LCJleHAiOjE3MzMzNDM5Mzl9.0MHJu0Qj06AbliVk-BT7DeVFtQ0Y6LHmee0R2YoQL9Y'
         
         useEffect(() => {        
             axios.get('http://localhost:3333/post', {
@@ -36,7 +36,7 @@ export default function ListPosts() {
             .then(response => { 
             // Armazena os dados no estado 
                 setPosts(response.data);
-         //   console.log(response.data)            
+            console.log(response.data)            
             }) 
                 .catch(error => { 
                     console.error('Erro ao carregar as categorias:', error); 
@@ -70,12 +70,12 @@ return (
                                     </div>
                                   <div className="card-body">
 
-    <table className="table">
+    <table className="table table-striped">
   <thead>
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">ID</th>
       <th scope="col">Título</th>
-      <th scope="col">Slug</th>
+      <th scope="col">Categoria</th>
       <th scope="col">Data</th>
       <th scope="col">Publicado</th>
 
@@ -86,12 +86,12 @@ return (
       <tr key={item.id}>                
     
         <th scope="row">{item.id}</th>
-        <td>
+        <td className="w-50">
             <a href="/">
             {item.title}
             </a>
         </td>
-        <td className="small"> {item.slug} </td>
+        <td className="small"> {item.category.title} </td>
         <td className="small"> {item.createdAt} </td>
         <td> 
 
