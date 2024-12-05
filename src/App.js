@@ -1,9 +1,9 @@
 //import Dashboard from './pages/Dashboard'
-import ListPosts from "./pages/ListPosts";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
-<ListPosts />
+<Dashboard />
   );
 }
 

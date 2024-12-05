@@ -5,7 +5,7 @@ export default function Navbar() {
     const [darkMode, setDarkMode] = useState(false); 
     useEffect(() => { 
         // Atualiza a classe do body 
-        document.body.className = darkMode ? 'bg-dark text-white' : 'bg-light text-dark'; 
+     //   document.body.className = darkMode ? 'bg-dark text-white' : 'bg-light text-dark'; 
         // Adiciona ou remove o atributo data-bs-theme 
         if (darkMode) { 
             document.body.setAttribute('data-bs-theme', 'dark'); 
@@ -25,15 +25,18 @@ const toggleTheme = () => { setDarkMode(!darkMode);
    
     <button className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i className="fas fa-bars"></i></button>
   
-    <form className="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-<p>Bem vindo Usuário</p>
-    </form>
-          <button className="btn btn-secondary mt-3" onClick={toggleTheme}> {darkMode ? <i className="fa-regular fa-sun"></i> : <i className="fa-regular fa-moon"></i>} </button> 
-   
+    <span className="d-none d-md-inline-block  ms-auto me-0 me-md-3 my-2 my-md-0">
+
+    </span>
+       
    
     <ul className="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
 
-
+<li className='class-item'>
+    <button className="nav-link "  onClick={toggleTheme}>
+    {darkMode ? <i className="fa-regular fa-moon"></i> : <i className="fa-regular fa-sun"></i>}
+    </button>
+</li>
 
 
         <li className="nav-item dropdown">

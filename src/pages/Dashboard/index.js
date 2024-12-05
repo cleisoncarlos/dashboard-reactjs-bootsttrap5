@@ -46,6 +46,8 @@ export default function Dashboard() {
 
         const [options, setOptions] = useState([]);
 
+        const [currentDate, setCurrentDate] = useState('');
+
          useEffect(() => { 
        
             axios.get('http://localhost:3333/category', {
@@ -62,6 +64,18 @@ export default function Dashboard() {
                     console.error('Erro ao carregar as categorias:', error); 
 
                 }); 
+
+// DATA NO INPUT
+
+// Obtém a data atual 
+const today = new Date(); 
+// Formata a data no formato yyyy-mm-dd 
+const formattedDate = today.toISOString().split('T')[0]; 
+// Define a data formatada no estado 
+setCurrentDate(formattedDate);
+
+
+
 
                
             }, []); 
@@ -174,11 +188,19 @@ const handleSubmit = async (e) => {
    
     </div>
 
-
     <div className="col-lg-6">
 
     <label  className="form-label">Data</label>
-    <input type="date" className="form-control" id="" placeholder=""/>
+    <input 
+    type="date" 
+    className="form-control" 
+    id="" 
+    placeholder=""
+    
+    value={currentDate} 
+    onChange={(e) => setCurrentDate(e.target.value)} // Permite ao usuário alterar a data
+       
+    />
 
 
         </div>

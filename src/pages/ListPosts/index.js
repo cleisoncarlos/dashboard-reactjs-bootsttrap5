@@ -1,15 +1,10 @@
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
-
 import axios from 'axios'
-
-
 import  { useEffect, useState } from 'react'; 
 
-export default function ListPosts() {
- 
-
+export default function ListPosts() { 
     // const handleChange = async (e) => { 
     //     const newPublished = e.target.checked; 
     //     setPublished(newPublished); 
@@ -22,11 +17,10 @@ export default function ListPosts() {
     //         } catch (error) { 
     //             console.error('Erro ao atualizar status:', error);
     //          } };
-
    
     const [posts, setPosts] = useState([]);
             
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODdkZTljLTM3NDQtNDNhNi1hMzViLTk1NjExMDk2MzY3MCIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIiwiaWF0IjoxNzMzMzQwMzM5LCJleHAiOjE3MzMzNDM5Mzl9.0MHJu0Qj06AbliVk-BT7DeVFtQ0Y6LHmee0R2YoQL9Y'
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODdkZTljLTM3NDQtNDNhNi1hMzViLTk1NjExMDk2MzY3MCIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIiwiaWF0IjoxNzMzNDA1MjU2LCJleHAiOjE3MzM0MDg4NTZ9.PPg52gOTVBPJFEbkYU2Ge0ow8u0Uh1HOySkTWFcWwBY'
         
         useEffect(() => {        
             axios.get('http://localhost:3333/post', {
