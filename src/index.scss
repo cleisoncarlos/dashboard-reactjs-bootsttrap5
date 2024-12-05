@@ -1,5 +1,6 @@
 @import "~bootstrap/scss/bootstrap";
 
+
 #layoutAuthentication {
   display: flex;
   flex-direction: column;
@@ -83,10 +84,10 @@
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav .sb-sidenav-menu {
   overflow-y: auto;
 }
-//  .sb-nav-fixed #layoutSidenav #layoutSidenav_content {
+ // .sb-nav-fixed #layoutSidenav #layoutSidenav_content {
 //    padding-left: 225px;
-//    top: 56px;
-//  }
+ //   top: 56px;
+ // }
 
 #layoutError {
   display: flex;
@@ -114,6 +115,8 @@
   padding-left: 0;
   height: 56px;
   z-index: 1039;
+  // background do navbar
+  background-image: linear-gradient(60deg, #29323c 0%, #485563 100%) !important;
 }
 .sb-topnav .navbar-brand {
   width: 225px;
@@ -174,6 +177,7 @@
 
 .sb-sidenav-dark {
   background-color: #212529;
+
   color: rgba(255, 255, 255, 0.5);
 }
 .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading {

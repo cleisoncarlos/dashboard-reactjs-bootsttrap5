@@ -20,7 +20,7 @@ export default function ListPosts() {
    
     const [posts, setPosts] = useState([]);
             
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODdkZTljLTM3NDQtNDNhNi1hMzViLTk1NjExMDk2MzY3MCIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIiwiaWF0IjoxNzMzNDA1MjU2LCJleHAiOjE3MzM0MDg4NTZ9.PPg52gOTVBPJFEbkYU2Ge0ow8u0Uh1HOySkTWFcWwBY'
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODdkZTljLTM3NDQtNDNhNi1hMzViLTk1NjExMDk2MzY3MCIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIiwiaWF0IjoxNzMzNDE3NjEwLCJleHAiOjE3MzM0MjEyMTB9.z__t5Oq1CyeuRNWUY2rlR_CKdCtHkN5OKEhrU4YoBwU'
         
         useEffect(() => {        
             axios.get('http://localhost:3333/post', {
@@ -72,6 +72,8 @@ return (
       <th scope="col">Categoria</th>
       <th scope="col">Data</th>
       <th scope="col">Publicado</th>
+      <th scope="col">Editar</th>
+      <th scope="col">Excluir</th>
 
     </tr>
   </thead>
@@ -80,24 +82,27 @@ return (
       <tr key={item.id}>                
     
         <th scope="row">{item.id}</th>
-        <td className="w-50">
+        <td>
             <a href="/">
             {item.title}
             </a>
         </td>
+
         <td className="small"> {item.category.title} </td>
         <td className="small"> {item.createdAt} </td>
-        <td> 
+
+            <td> 
 
         <div className="form-check form-switch">
   <input className="form-check-input" 
   type="checkbox" 
   role="switch" 
   id={item.id}
+  checked={item.published}
  
   ></input>
 
-<label className="form-check-label small" htmlFor={item.id}>{item.published ? 'Publicado' : 'Não Publicado'}</label>
+{/* <label className="form-check-label small" htmlFor={item.id}>{item.published ? 'Publicado' : 'Não Publicado'}</label> */}
 
 </div>
 
@@ -105,6 +110,25 @@ return (
             
             
              </td>
+
+
+             <td>
+           
+  <button class="btn  btn-primary btn-sm" type="button">
+  <i class="fa-regular fa-pen-to-square"></i>
+  </button>
+
+
+
+             </td>
+
+             <td>
+
+           <button class="btn  btn-danger btn-sm" type="button">
+           <i class="fa-solid fa-trash-can"></i>
+           </button>
+         
+                      </td>
        
 </tr>
     ))}
