@@ -8,20 +8,20 @@ export default function Sidebar() {
         <div className="nav">
             <div className="sb-sidenav-menu-heading">POSTS</div>
             <a className="nav-link" href="/">
-                <div className="sb-nav-link-icon"><i className="fas fa-news-alt"></i></div>
+                <div className="sb-nav-link-icon"><i class="fa-regular fa-newspaper"></i></div>
                 Inserir Post
             </a>
             <a className="nav-link" href="/">
-                <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
+                <div className="sb-nav-link-icon"><i class="fa-solid fa-list"></i></div>
                 Listar Posts
             </a>
             <div className="sb-sidenav-menu-heading">CATEGORIAS</div>
             <a className="nav-link" href="/">
-                <div className="sb-nav-link-icon"><i className="fas fa-tag-alt"></i></div>
+                <div className="sb-nav-link-icon"><i class="fa-solid fa-tags"></i></div>
                 Inserir Categoria
             </a>
             <a className="nav-link" href="/">
-                <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
+                <div className="sb-nav-link-icon"><i class="fa-solid fa-list"></i></div>
                 Listar Categorias
             </a>
             <div className="sb-sidenav-menu-heading">USUÁRIOS</div>
@@ -30,7 +30,7 @@ export default function Sidebar() {
                 Inserir Usuário
             </a>
             <a className="nav-link" href="/">
-                <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
+                <div className="sb-nav-link-icon"><i class="fa-solid fa-list"></i></div>
                 Listar Usuários
             </a>
             <div className="sb-sidenav-menu-heading">Interface</div>
