@@ -29,11 +29,11 @@ const handleSubmit = async (e) => {
 
     const dados = { title: title };
     
-    console.log('Dados enviados:', { dados });
+ //   console.log('Dados enviados:', { dados });
     try {         
         const response = await axios.post('http://localhost:3333/category', JSON.stringify(dados), { 
             headers: { 
-                'Content-Type': 'application/json',
+               // 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             } 
         }

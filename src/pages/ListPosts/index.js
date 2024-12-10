@@ -20,7 +20,7 @@ export default function ListPosts() {
    
     const [posts, setPosts] = useState([]);
             
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODdkZTljLTM3NDQtNDNhNi1hMzViLTk1NjExMDk2MzY3MCIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIiwiaWF0IjoxNzMzNDE3NjEwLCJleHAiOjE3MzM0MjEyMTB9.z__t5Oq1CyeuRNWUY2rlR_CKdCtHkN5OKEhrU4YoBwU'
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODdkZTljLTM3NDQtNDNhNi1hMzViLTk1NjExMDk2MzY3MCIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIiwiaWF0IjoxNzMzNzU2NjAyLCJleHAiOjE3MzM3NjAyMDJ9.QjH8zh9LtZG1Zt9B2tm_bRHP0id7PKOLAUG5xQndIvc'
         
         useEffect(() => {        
             axios.get('http://localhost:3333/post', {
@@ -61,6 +61,10 @@ return (
                                 <div className="card mb-4">
                                     <div className="card-header">
                                        Lorem Ipsum Dolor
+
+
+
+                                       <span className="badge text-danger">{`Postagens: ${posts.length}`}</span>
                                     </div>
                                   <div className="card-body">
 

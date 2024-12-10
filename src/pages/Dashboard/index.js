@@ -12,131 +12,100 @@ import 'quill/dist/quill.snow.css'; // Importa o CSS do tema
 
 export default function Dashboard() {
 
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODdkZTljLTM3NDQtNDNhNi1hMzViLTk1NjExMDk2MzY3MCIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIiwiaWF0IjoxNzMzODM1NTkwLCJleHAiOjE3MzM4MzkxOTB9.UEBjJN4Mp2xBai3DrCzX8JgK79XTD7ptlU41DOVyK2E'; // Substitua pelo seu token
 
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODdkZTljLTM3NDQtNDNhNi1hMzViLTk1NjExMDk2MzY3MCIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIiwiaWF0IjoxNzMzMzE3NTc3LCJleHAiOjE3MzMzMjExNzd9.WiPXmYnYcr4IVR7NpD7XH00WZ-qXKkrtwye-tW9pNUI'
-   
-    const editorRef = useRef(null); 
-    const quillRef = useRef(null); 
-    
-    useEffect(() => { if (quillRef.current == null) { 
-        quillRef.current = new Quill(editorRef.current, { 
-            theme: 'snow', 
-            modules: { 
-                toolbar: [ 
-
-                    [{ 'header': '1'}, {'header': '2'}, {'header': '3'}, { 'font': [] }], 
-                    [{size: []}], 
-                    ['bold', 'italic', 'underline', 'blockquote'], 
-                    [{ 'align': [] }],
-                    [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}], 
-                    ['link', 'image'], 
-                    [{ 'color': [] }], 
-                    [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-                    // ´['clean']                    
-                ],
-                // handlers: { 
-                //     image: imageHandler
-                // } 
-            } 
+    const editorRef = useRef(null);
+    const quillRef = useRef(null);
+  
+    useEffect(() => {
+      if (quillRef.current == null) {
+        quillRef.current = new Quill(editorRef.current, {
+          theme: 'snow',
+          modules: {
+            toolbar: [
+              [{ 'header': '1' }, { 'header': '2' }, { 'header': '3' }, { 'font': [] }],
+              [{ size: [] }],
+              ['bold', 'italic', 'underline', 'blockquote'],
+              [{ 'align': [] }],
+              [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+             // ['link', 'image'],
+             ['link'],
+              [{ 'color': [] }],
+              [{ 'script': 'sub' }, { 'script': 'super' }],
+            ]
+          }
         });
-    }
-        }, []);
-
-
-
-        const [options, setOptions] = useState([]);
-
-        const [currentDate, setCurrentDate] = useState('');
-
-         useEffect(() => { 
-       
-            axios.get('http://localhost:3333/category', {
-                 headers: { 'Authorization': `Bearer ${token}` }
-             }
-        )
-            .then(response => { 
-            // Armazena os dados no estado 
-                setOptions(response.data);
-         //   console.log(response.data)
-            
-            }) 
-                .catch(error => { 
-                    console.error('Erro ao carregar as categorias:', error); 
-
-                }); 
-
-// DATA NO INPUT
-
-// Obtém a data atual 
-const today = new Date(); 
-// Formata a data no formato yyyy-mm-dd 
-const formattedDate = today.toISOString().split('T')[0]; 
-// Define a data formatada no estado 
-setCurrentDate(formattedDate);
-
-
-
-
-               
-            }, []); 
-          
-         
-            
-
-// salva post ============================================
-
-const getConteudo = () => { 
-    if (quillRef.current) { 
-        const conteudo = quillRef.current.root.innerHTML; 
-        return conteudo; 
-    } return '';
- };
-
-const [title, setTitle] = useState(''); 
-const [categoryId, setCategoryId] = useState('');
-
-const handleTitleChange = (e) => setTitle(e.target.value); 
-const handleCategoryChange = (e) => setCategoryId(e.target.value);
-
-// função para salvar o position
-
-const handleSubmit = async (e) => {    
-    e.preventDefault(); 
-
-    const content = getConteudo()
-       
-    //  const formData = new FormData(); 
-    //  formData.append('title', title); 
-    //  formData.append('content', content); 
-    //  formData.append('categoryId', categoryId);
-
-    const dados = { title: title, content: content, categoryId: categoryId };
-    
-    console.log('Dados enviados:', { dados });
-    try {         
-        const response = await axios.post('http://localhost:3333/post', JSON.stringify(dados), { 
-            headers: { 
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            } 
-        }
-        ); 
+      }
+    }, []);
+  
+    const [options, setOptions] = useState([]);
+    const [currentDate, setCurrentDate] = useState('');
+    const [title, setTitle] = useState('');
+    const [categoryId, setCategoryId] = useState('');
+    const [selectedFile, setSelectedFile] = useState(null);
+  
+    useEffect(() => {
+      axios.get('http://localhost:3333/category', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+        .then(response => {
+          setOptions(response.data);
+        })
+        .catch(error => {
+          console.error('Erro ao carregar as categorias:', error);
+        });
+  
+      const today = new Date();
+      const formattedDate = today.toISOString().split('T')[0];
+      setCurrentDate(formattedDate);
+    }, [token]);
+  
+    const getConteudo = () => {
+      if (quillRef.current) {
+        return quillRef.current.root.innerHTML;
+      }
+      return '';
+    };
+  
+    const handleTitleChange = (e) => setTitle(e.target.value);
+    const handleCategoryChange = (e) => setCategoryId(e.target.value);
+    const handleImageChange = (e) => setSelectedFile(e.target.files[0]);
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      const content = getConteudo();
+  
+      if (!selectedFile) {
+        toast.warning('A imagem é obrigatória!');
+        return;
+      }
+  
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('content', content);
+      formData.append('categoryId', categoryId);
+      formData.append('urlImagePost', selectedFile);
+  
+      try {
+        const response = await axios.post('http://localhost:3333/post', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${token}`
+          }
+        });
         toast.success('Post cadastrado com sucesso!');
-
-// Limpar os campos do formulário 
-        setTitle('');      
+  
+        setTitle('');
         setCategoryId('');
         quillRef.current.setContents([]);
-//==========================================
-          console.log('Post salvo com sucesso:', response.data); 
-    } catch (error) { 
-        toast.error('Erro ao cadastrar postagem!', {
-            className: 'alert alert-success',
-        });
-        console.error('Erro ao salvar o post:', error.response.data);  
-    
-        
-    } };
+        setSelectedFile(null);
+  
+        console.log('Post salvo com sucesso:', response.data);
+      } catch (error) {
+        toast.error('Erro ao cadastrar postagem!');
+        console.error('Erro ao salvar o post:', error.response.data);
+      }
+    };
 
   return (
 <>
@@ -164,62 +133,49 @@ const handleSubmit = async (e) => {
                                   <div className="card-body">
 
 
-                           <form  onSubmit={handleSubmit}>
-
-                                  <div className="mb-3">
-  <label  className="form-label">Titulo</label>
-  <input type="text" className="form-control" value={title} onChange={handleTitleChange}/>
-</div>
-
-<div className="row mb-3">
-    <div className="col-lg-6">
-
-    <label  className="form-label">Categoria</label>
-
-    <select className="form-select" value={categoryId} onChange={handleCategoryChange}>
-    {options.map((item) => ( 
-        <option 
-            key={item.id} 
-            value={item.id}> 
-            {item.title} 
-        </option>
-     ))}
-</select>
-   
-    </div>
-
-    <div className="col-lg-6">
-
-    <label  className="form-label">Data</label>
-    <input 
-    type="date" 
-    className="form-control" 
-    id="" 
-    placeholder=""
-    
-    value={currentDate} 
-    onChange={(e) => setCurrentDate(e.target.value)} // Permite ao usuário alterar a data
-       
-    />
-
-
+                                  <form onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label className="form-label">Título</label>
+          <input type="text" className="form-control" value={title} onChange={handleTitleChange} required />
         </div>
-    
-    </div>    
-
-
-
-
-
-                                  <div ref={editorRef} />   
-
-
-                               
-                               
-
-                                  <button className="btn btn-danger" type="submit">Salvar Post</button>                                                
-                               
-</form>
+        <div className="row mb-3">
+          <div className="col-lg-4">
+            <label className="form-label">Categoria</label>
+            <select className="form-select" value={categoryId} onChange={handleCategoryChange} required>
+              <option value="">Selecione uma categoria</option>
+              {options.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.title}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="col-lg-4">
+            <label className="form-label">Data</label>
+            <input
+              type="date"
+              className="form-control"
+              value={currentDate}
+              onChange={(e) => setCurrentDate(e.target.value)}
+              required
+            />
+          </div>
+          <div className="col-lg-4">
+            <div className="mb-3">
+              <label htmlFor="formFile" className="form-label">Upload de Imagem</label>
+              <input
+                type="file"
+                className="form-control"
+                onChange={handleImageChange}
+                accept="image/png, image/jpeg, image/jpg"
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <div ref={editorRef} className="mb-3" />
+        <button className="btn btn-primary" type="submit">Salvar Post</button>
+      </form>
                                   </div>    
                                 </div>
                             </div>
